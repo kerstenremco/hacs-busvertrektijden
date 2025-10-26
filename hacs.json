@@ -1,0 +1,6 @@
+{
+  "name": "Bus vertrektijden",
+  "domains": ["busvertrektijden"],
+  "country": "NL",
+  "render_readme": true
+}
