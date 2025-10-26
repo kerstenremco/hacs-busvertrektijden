@@ -1,4 +1,4 @@
-# Bustijden API
+# HACS bus vertrektijden
 
 An Home Assistant HACS integration that displays upcoming bus departures in **real time** for a specific bus stop.
 
