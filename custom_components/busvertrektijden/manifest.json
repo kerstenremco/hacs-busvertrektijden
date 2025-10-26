@@ -1,12 +1,12 @@
 {
+  "domain": "busvertrektijden",
+  "name": "Bus vertrektijden",
   "codeowners": ["@kerstenremco"],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/kerstenremco/hacs-busvertrektijden/",
-  "domain": "busvertrektijden",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/kerstenremco/hacs-busvertrektijden/issues",
-  "name": "Bus vertrektijden",
   "requirements": [],
   "version": "0.9.0"
 }
