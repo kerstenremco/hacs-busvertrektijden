@@ -1,17 +1,25 @@
-# Bustijden for Home Assistant
+# Bustijden API
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Remco+Kersten&repository=https%3A%2F%2Fgithub.com%2Fkerstenremco%2Fhacs-busvertrektijden)
+An Home Assistant HACS integration that displays upcoming bus departures in **real time** for a specific bus stop.
+
+> Note: This integration only works for bus stops located in the Netherlands 🇳🇱.
 
 ## Installation
 
-- Add repo to hacs
-- Download hacs
-- Add config
+- Add this repository as a **custom repository** in HACS
+  ![Step 1](screenshots/step1.png)
+- Search for **Bus vertrektijden** and install the integration
+  ![Step 2](screenshots/step2.png)
+- Under **Integrations**, search for **Bus vertrektijden** and follow the setup wizard to complete the installation.
+  ![Step 3](screenshots/step3.png)
 
-```
-sensor:
-  - platform: bustijden
-    stop_ids: '3390096,3390097,3430629,3430630,3470439,3470440'
-    stop_name: 'Rembrand van Rijnstraat'
-    stop_amount: 8
-```
+## Frontend Card (Optional)
+
+Want to display your bus stops directly on your Home Assistant dashboard?
+You can use the Bustijden Card, which is available in a separate repository: [hacs-busvertrektijden](https://github.com/kerstenremco/hacs-busvertrektijden-card)
+
+Follow the installation instructions in that repository for setup details.
+
+## Contributing
+
+Contributions are always welcome! Open a PR when needed!
