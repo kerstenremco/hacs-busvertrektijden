@@ -4,9 +4,8 @@ import base64
 
 
 class Bus:
-    def __init__(self, base_key, amount):
+    def __init__(self, base_key):
         self.base_key = base_key
-        self.amount = amount
         self.stop_name = self.base64_decode()
 
     def base64_decode(self):
@@ -20,5 +19,5 @@ class Bus:
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{API_URL}/stops/{self.base_key}") as response:
                 data = await response.json()
-                stopTimes = list(data)[:self.amount]
+                stopTimes = list(data)[:10]
                 return stopTimes

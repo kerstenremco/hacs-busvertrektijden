@@ -1,15 +1,11 @@
 from homeassistant import config_entries
-from .const import DOMAIN, CONF_STOP_AMOUNT, CONF_STOP_BASEKEY, API_URL
+from .const import DOMAIN, CONF_STOP_BASEKEY, API_URL
 import voluptuous as vol
 import aiohttp
 import base64
 
 SEARCH_SCHEMA = vol.Schema({
     vol.Required('search'): str
-})
-
-OPTIONS_SCHEMA = vol.Schema({
-    vol.Required(CONF_STOP_AMOUNT, default=8): int
 })
 
 
@@ -64,18 +60,8 @@ class BusVertrektijdenConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if self._basekey == "redo":
             return await self.async_step_user()
 
-        return self.async_show_form(
-            step_id="select_options",
-            data_schema=OPTIONS_SCHEMA)
-
-    async def async_step_select_options(self, user_input=None):
-        """Create entry with selected options."""
-        self._amount = user_input[CONF_STOP_AMOUNT]
         return self.async_create_entry(
 
             title=base64.b64decode(self._basekey).decode('utf-8'),
-            data={
-                CONF_STOP_BASEKEY: self._basekey,
-                CONF_STOP_AMOUNT: self._amount,
-            },
+            data={CONF_STOP_BASEKEY: self._basekey},
         )
