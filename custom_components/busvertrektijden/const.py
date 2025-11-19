@@ -1,5 +1,5 @@
 DOMAIN = "busvertrektijden"
 
-CONF_STOP_BASEKEY = "stop_basekey"
+CONF_STOP_NAME = "stop_name"
 
 API_URL = "https://api.busvertrektijden.nl"

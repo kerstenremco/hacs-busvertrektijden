@@ -1,23 +1,28 @@
 import aiohttp
 from .const import API_URL
-import base64
+
+
+class BusStop:
+    cancelled: bool
 
 
 class Bus:
-    def __init__(self, base_key):
-        self.base_key = base_key
-        self.stop_name = self.base64_decode()
-
-    def base64_decode(self):
-        try:
-            decoded_bytes = base64.b64decode(self.base_key)
-            return decoded_bytes.decode('utf-8')
-        except Exception:
-            return None
+    def __init__(self, stop_name):
+        self.stop_name = stop_name
+        self.ids = None
 
     async def get_next_buses(self):
+        if self.ids == None:
+            await self.get_ids()
         async with aiohttp.ClientSession() as session:
-            async with session.get(f"{API_URL}/stops/{self.base_key}") as response:
+            async with session.get(f"{API_URL}/stops/{self.ids}") as response:
                 data = await response.json()
                 stopTimes = list(data)[:10]
                 return stopTimes
+
+    async def get_ids(self):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(f"{API_URL}/stops?q={self.stop_name}") as response:
+                data = await response.json()
+                stop = list(data)[0]
+                self.ids = ",".join(stop['ids'])

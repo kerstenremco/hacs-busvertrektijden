@@ -1,8 +1,7 @@
 from homeassistant import config_entries
-from .const import DOMAIN, CONF_STOP_BASEKEY, API_URL
+from .const import DOMAIN, CONF_STOP_NAME, API_URL
 import voluptuous as vol
 import aiohttp
-import base64
 
 SEARCH_SCHEMA = vol.Schema({
     vol.Required('search'): str
@@ -21,7 +20,7 @@ class BusVertrektijdenConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 data_schema=SEARCH_SCHEMA, errors=errors
             )
 
-        # User has submitted the stop_basekey, validate it
+        # User has submitted the stop_name, validate it
         search_query = user_input['search']
         stops = await self._get_stops(search_query)
         if not stops or len(stops) == 0:
@@ -51,17 +50,17 @@ class BusVertrektijdenConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 data = await response.json()
                 stopTimes = dict({"redo": "-- Zoek opnieuw --"})
                 for item in data:
-                    stopTimes[item["baseKey"]] = item["name"]
+                    name = item['name']
+                    stopTimes[name] = name
                 return stopTimes
 
     async def async_step_select_stop(self, user_input=None):
         """Final step: user selected a stop_id, create the entry."""
-        self._basekey = user_input["selected_stop"]
-        if self._basekey == "redo":
+        name = user_input["selected_stop"]
+        if name == "redo":
             return await self.async_step_user()
 
         return self.async_create_entry(
-
-            title=base64.b64decode(self._basekey).decode('utf-8'),
-            data={CONF_STOP_BASEKEY: self._basekey},
+            title=name,
+            data={CONF_STOP_NAME: name},
         )
